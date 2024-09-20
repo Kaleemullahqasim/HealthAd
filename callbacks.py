@@ -1,7 +1,10 @@
 import streamlit as st
 from groq import Groq, GroqError
 import os
+from dotenv import load_dotenv  # Import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 def on_click_callback(context):
     system_prompt = """
     You are HealthAdviser, a chatbot designed to provide personalized health advice. 
@@ -14,7 +17,7 @@ def on_click_callback(context):
     Dont ask for question if you dont need any information from user.
     """
 
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = os.getenv("GROQ_API_KEY")  # Use os.getenv to get the API key
     if not api_key:
         st.error("Groq API key not found. Please set the GROQ_API_KEY environment variable.")
         return ""
